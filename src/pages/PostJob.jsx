@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useJobsData } from '../contexts/JobsDataContext';
 
@@ -212,9 +212,9 @@ const PostJob = () => {
           <div className="text-6xl mb-6">🚫</div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">{!isAuthenticated ? 'Please Log In' : 'Access Denied'}</h2>
           <p className="text-gray-600 dark:text-gray-400 mb-6">{!isAuthenticated ? 'You need to be logged in to post jobs.' : 'This page is only available for employers.'}</p>
-          <a href="/" className="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors">
+          <Link to="/" className="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors">
             Go Home
-          </a>
+          </Link>
         </div>
       </div>
     );
