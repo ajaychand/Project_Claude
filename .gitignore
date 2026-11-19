@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 claude.exe
+
+# Claude Code local settings
+.claude/settings.local.json
