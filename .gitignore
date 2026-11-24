@@ -27,3 +27,6 @@ claude.exe
 
 # Claude Code local settings
 .claude/settings.local.json
+
+# WhatsApp hook: personal phone number, kept local only
+.claude/hooks/whatsapp-phone.local

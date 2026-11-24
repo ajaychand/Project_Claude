@@ -1,15 +1,24 @@
 # Claude Code hook: opens WhatsApp Web with a chat to the contact and "hi" typed in.
 # You press Enter (or click Send) to send it.
+#
+# The phone number is NOT stored in this file (it is committed to git).
+# Put it in .claude/hooks/whatsapp-phone.local (gitignored), or set the
+# WHATSAPP_PHONE environment variable. Country code, digits only, e.g. 919876543210.
 
-$Phone   = "PHONE_NUMBER"   # country code, no + or spaces, e.g. 919876543210
 $Message = "hi"
 
 # Claude Code sends hook details as JSON on stdin; read it so the pipe is drained.
 $null = [Console]::In.ReadToEnd()
 
-$digits = $Phone -replace '[^\d]', ''
+$Phone = $env:WHATSAPP_PHONE
+$localFile = Join-Path $PSScriptRoot 'whatsapp-phone.local'
+if (-not $Phone -and (Test-Path $localFile)) {
+    $Phone = (Get-Content -Raw $localFile)
+}
+
+$digits = "$Phone" -replace '[^\d]', ''
 if (-not $digits) {
-    [Console]::Error.WriteLine("whatsapp-hi hook: set `$Phone in .claude/hooks/whatsapp-hi.ps1")
+    [Console]::Error.WriteLine("whatsapp-hi hook: put your number in .claude/hooks/whatsapp-phone.local or set WHATSAPP_PHONE")
     exit 0
 }
 
